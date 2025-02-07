@@ -11,10 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('employees', function () {
+Route::get('/employees', function () {
     return view('employee-form');
 });
 
-Route::get('tasks', function () {
+Route::get('/tasks', function () {
     return view('task-form');
 });
