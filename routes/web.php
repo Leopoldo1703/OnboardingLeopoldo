@@ -10,3 +10,11 @@ Route::get('{unknown}', static fn () => view('app  '))->where('unknown', '^(?!ap
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('employees', function () {
+    return view('employee-form');
+});
+
+Route::get('tasks', function () {
+    return view('task-form');
+});
