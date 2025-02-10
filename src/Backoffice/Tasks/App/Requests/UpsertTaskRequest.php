@@ -12,6 +12,7 @@ class UpsertTaskRequest extends FormRequest
     {
         return true;
     }
+
     public function rules(): array
     {
         return [
@@ -22,7 +23,8 @@ class UpsertTaskRequest extends FormRequest
             'employee_id' => ['nullable', 'exists:employees,id'],
         ];
     }
-    public function getAction(): ?string
+
+    public function getAction(): mixed
     {
         return $this->input('action');
     }

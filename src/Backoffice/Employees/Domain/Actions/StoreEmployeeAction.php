@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lightit\Backoffice\Employees\Domain\Actions;
 
 use Lightit\Backoffice\Employees\App\Requests\StoreEmployeeRequest;

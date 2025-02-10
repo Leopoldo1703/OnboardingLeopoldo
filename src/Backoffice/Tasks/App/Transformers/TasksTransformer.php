@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lightit\Backoffice\Tasks\App\Transformers;
 
 use Flugg\Responder\Transformers\Transformer;
@@ -14,10 +16,7 @@ class TasksTransformer extends Transformer
             'title' => $task->title,
             'description' => $task->description,
             'status' => $task->status,
-            'assigned_user' => [
-                'id' => $task->employee->id,
-                'name' => $task->employee->name,
-            ],
+            'assigned_user' => $task->employee?->only(['id', 'name']),
         ];
     }
 }

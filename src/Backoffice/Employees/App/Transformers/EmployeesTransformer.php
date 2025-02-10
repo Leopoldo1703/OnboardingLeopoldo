@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lightit\Backoffice\Employees\App\Transformers;
 
 use Flugg\Responder\Transformers\Transformer;

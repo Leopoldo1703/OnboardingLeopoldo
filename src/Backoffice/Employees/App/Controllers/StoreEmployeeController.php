@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Lightit\Backoffice\Employees\App\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Lightit\Backoffice\Employees\Domain\Actions\StoreEmployeeAction;
 use Lightit\Backoffice\Employees\App\Requests\StoreEmployeeRequest;
 use Lightit\Backoffice\Employees\App\Transformers\EmployeesTransformer;
+use Lightit\Backoffice\Employees\Domain\Actions\StoreEmployeeAction;
 
 class StoreEmployeeController
 {
