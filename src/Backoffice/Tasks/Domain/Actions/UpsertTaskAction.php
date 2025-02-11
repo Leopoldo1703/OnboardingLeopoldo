@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Lightit\Backoffice\Tasks\Domain\Actions;
 
 use Illuminate\Database\Eloquent\Collection;
+use Lightit\Backoffice\Employees\App\Notifications\TaskAssignmentNotification;
 use Lightit\Backoffice\Tasks\Domain\Models\Task;
 
 class UpsertTaskAction
 {
-
     /**
      * @param array<string, mixed> $data
-     * @return Task
      */
     public function execute(array $data): Task
     {
@@ -23,7 +22,11 @@ class UpsertTaskAction
                     throw new \Exception('Expected a single Task instance, but found a collection.');
                 }
                 unset($data['id']);
+                $oldEmployeeId = $task->employee_id;
                 $task->update($data);
+                if ($oldEmployeeId != $data['employee_id'] && $task->employee) {
+                    $task->employee->notify(new TaskAssignmentNotification($task));
+                }
             } else {
                 throw new \Exception('Task not found');
             }
@@ -35,6 +38,9 @@ class UpsertTaskAction
                 'employee_id' => $data['employee_id'],
             ]);
             $task->save();
+            if ($task->employee) {
+                $task->employee->notify(new TaskAssignmentNotification($task));
+            }
         }
 
         return $task;
