@@ -15,11 +15,3 @@ Route::get('{unknown}', static fn () => view('app  '))->where('unknown', '^(?!ap
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::prefix('api')->group(function () {
-    Route::post('/employees', StoreEmployeeController::class)->name('employees');
-    Route::get('/employees', ListEmployeesController::class);
-    Route::get('/tasks', ListTasksController::class);
-    Route::get('/tasks/{task}', GetTaskController::class);
-    Route::post('/tasks', UpsertTaskController::class)->name('tasks');
-});

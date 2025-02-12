@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Lightit\Backoffice\Tasks\Domain\Actions;
 
-use Illuminate\Database\Eloquent\Collection;
 use Lightit\Backoffice\Employees\App\Notifications\TaskAssignmentNotification;
 use Lightit\Backoffice\Tasks\Domain\Models\Task;
 
@@ -16,20 +15,12 @@ class UpsertTaskAction
     public function execute(array $data): Task
     {
         if (isset($data['id'])) {
-            $task = Task::find($data['id']);
-            if ($task) {
-                if ($task instanceof Collection) {
-                    throw new \Exception('Expected a single Task instance, but found a collection.');
-                }
-                unset($data['id']);
-                $oldEmployeeId = $task->employee_id;
-                $task->update($data);
-                if ($oldEmployeeId != $data['employee_id'] && $task->employee) {
-                    $task->employee->notify(new TaskAssignmentNotification($task));
-                }
-            } else {
-                throw new \Exception('Task not found');
-            }
+            /** @var Task $task */
+            $task = Task::findOrFail($data['id']);
+            unset($data['id']);
+            $oldEmployeeId = $task->employee_id;
+            $task->update($data);
+            $this->notifyEmployeeIfNeeded($task, $oldEmployeeId);
         } else {
             $task = new Task([
                 'title' => $data['title'],
@@ -38,11 +29,16 @@ class UpsertTaskAction
                 'employee_id' => $data['employee_id'],
             ]);
             $task->save();
-            if ($task->employee) {
-                $task->employee->notify(new TaskAssignmentNotification($task));
-            }
+            $this->notifyEmployeeIfNeeded($task);
         }
 
         return $task;
+    }
+
+    private function notifyEmployeeIfNeeded(Task $task, int|null $oldEmployeeId = null): void
+    {
+        if ($task->employee && ($oldEmployeeId === null || $oldEmployeeId != $task->employee_id)) {
+            $task->employee->notify(new TaskAssignmentNotification($task));
+        }
     }
 }
