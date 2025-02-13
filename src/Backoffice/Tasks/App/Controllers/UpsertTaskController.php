@@ -6,7 +6,7 @@ namespace Lightit\Backoffice\Tasks\App\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Lightit\Backoffice\Tasks\App\Requests\UpsertTaskRequest;
-use Lightit\Backoffice\Tasks\App\Transformers\TasksTransformer;
+use Lightit\Backoffice\Tasks\App\Transformers\TaskTransformer;
 use Lightit\Backoffice\Tasks\Domain\Actions\UpsertTaskAction;
 
 class UpsertTaskController
@@ -16,7 +16,7 @@ class UpsertTaskController
         $task = $action->execute($request->validated());
 
         return responder()
-            ->success($task, TasksTransformer::class)
+            ->success($task, TaskTransformer::class)
             ->respond(JsonResponse::HTTP_CREATED);
     }
 }

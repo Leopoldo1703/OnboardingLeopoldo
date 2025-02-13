@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lightit\Backoffice\Tasks\App\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Lightit\Backoffice\Tasks\App\Transformers\TasksTransformer;
+use Lightit\Backoffice\Tasks\App\Transformers\TaskTransformer;
 use Lightit\Backoffice\Tasks\Domain\Actions\ListTasksAction;
 
 class ListTasksController
@@ -15,7 +15,7 @@ class ListTasksController
         $tasks = $action->execute();
 
         return responder()
-            ->success($tasks, TasksTransformer::class)
+            ->success($tasks, TaskTransformer::class)
             ->respond();
     }
 }

@@ -7,6 +7,7 @@ namespace Lightit\Backoffice\Employees\App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Lightit\Backoffice\Employees\Domain\Models\Employee;
 use Lightit\Backoffice\Tasks\Domain\Models\Task;
 
 class TaskAssignmentNotification extends Notification
@@ -24,8 +25,7 @@ class TaskAssignmentNotification extends Notification
     {
         return ['mail'];
     }
-
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(Employee $notifiable): MailMessage
     {
         return (new MailMessage())
             ->subject(

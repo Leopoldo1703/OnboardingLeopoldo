@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lightit\Backoffice\Employees\App\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Lightit\Backoffice\Employees\App\Transformers\EmployeesTransformer;
+use Lightit\Backoffice\Employees\App\Transformers\EmployeeTransformer;
 use Lightit\Backoffice\Employees\Domain\Actions\ListEmployeesAction;
 
 class ListEmployeesController
@@ -15,7 +15,7 @@ class ListEmployeesController
         $employees = $action->execute();
 
         return responder()
-            ->success($employees, EmployeesTransformer::class)
+            ->success($employees, EmployeeTransformer::class)
             ->respond();
     }
 }
