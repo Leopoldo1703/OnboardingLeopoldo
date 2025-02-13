@@ -8,7 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpsertTaskRequest extends FormRequest
 {
-
     public function rules(): array
     {
         return [

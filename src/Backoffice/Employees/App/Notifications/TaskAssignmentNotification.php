@@ -25,6 +25,7 @@ class TaskAssignmentNotification extends Notification
     {
         return ['mail'];
     }
+
     public function toMail(Employee $notifiable): MailMessage
     {
         return (new MailMessage())

@@ -6,7 +6,6 @@ namespace Lightit\Backoffice\Tasks\App\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Lightit\Backoffice\Tasks\App\Transformers\TaskTransformer;
-use Lightit\Backoffice\Tasks\Domain\Actions\GetTaskAction;
 use Lightit\Backoffice\Tasks\Domain\Models\Task;
 
 class GetTaskController

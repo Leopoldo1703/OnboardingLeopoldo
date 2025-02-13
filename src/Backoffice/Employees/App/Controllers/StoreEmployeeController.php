@@ -13,7 +13,7 @@ class StoreEmployeeController
 {
     public function __invoke(StoreEmployeeRequest $request, StoreEmployeeAction $storeEmployeeAction): JsonResponse
     {
-        $employee = $storeEmployeeAction->execute($request->toDto() ?? []);
+        $employee = $storeEmployeeAction->execute($request->toDto());
 
         return responder()
             ->success($employee, EmployeeTransformer::class)
