@@ -2,6 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Lightit\Backoffice\Employees\App\Controllers\ListEmployeesController;
+use Lightit\Backoffice\Employees\App\Controllers\StoreEmployeeController;
+use Lightit\Backoffice\Tasks\App\Controllers\GetTaskController;
+use Lightit\Backoffice\Tasks\App\Controllers\ListTasksController;
+use Lightit\Backoffice\Tasks\App\Controllers\UpsertTaskController;
 use Lightit\Backoffice\Users\App\Controllers\DeleteUserController;
 use Lightit\Backoffice\Users\App\Controllers\GetUserController;
 use Lightit\Backoffice\Users\App\Controllers\ListUserController;
@@ -35,3 +40,9 @@ Route::prefix('users')
         Route::post('/', StoreUserController::class);
         Route::delete('/{user}', DeleteUserController::class);
     });
+
+Route::post('/employees', StoreEmployeeController::class)->name('employees');
+Route::get('/employees', ListEmployeesController::class);
+Route::get('/tasks', ListTasksController::class);
+Route::get('/tasks/{task}', GetTaskController::class);
+Route::post('/tasks', UpsertTaskController::class)->name('tasks');
